@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MFUMO WA MATOKEO - KATULO</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f1f5f9;color:#172033}
+header{background:linear-gradient(135deg,#075985,#0e7490);color:#fff;text-align:center;padding:22px 12px}
+header h1{margin:0;font-size:25px}header p{margin:7px 0 0;font-size:14px}
+.container{max-width:1050px;margin:20px auto;padding:0 12px}
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 3px 14px #00000012}
+h2{margin-top:0;color:#075985}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+label{font-weight:bold;font-size:14px;display:block;margin-bottom:6px}
+input,select,button{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px}
+button{background:#075985;color:white;border:0;font-weight:bold;cursor:pointer}button:hover{background:#0c4a6e}
+.secondary{background:#64748b}.success{background:#15803d}.danger{background:#b91c1c}
+.school-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.school{border:1px solid #dbeafe;border-radius:10px;padding:14px;background:#f8fafc;cursor:pointer}.school:hover{background:#e0f2fe}
+.school b{display:block;color:#075985;margin-bottom:5px}.muted{color:#64748b;font-size:13px}
+.result{display:none}.student-head{background:#e0f2fe;padding:15px;border-radius:10px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{padding:10px;border:1px solid #cbd5e1;text-align:left}th{background:#075985;color:#fff}
+.pass{color:#15803d;font-weight:bold}.fail{color:#b91c1c;font-weight:bold}
+.notice{padding:12px;border-radius:8px;background:#fff7ed;border-left:4px solid #f97316;margin-bottom:15px}
+footer{text-align:center;padding:25px;color:#64748b;font-size:13px}
+@media(max-width:600px){header h1{font-size:20px}th,td{font-size:13px;padding:7px}}
+</style>
+</head>
+<body>
+<header>
+<h1>MFUMO WA MATOKEO</h1>
+<p>UMOJA WA WALIMU WAKUU KATULO • MITIHANI BORA, TUMAINI LETU</p>
+<p>Matokeo ya Shule</p>
+</header>
+
+<div class="container">
+<div class="card">
+<h2>🔎 Angalia Matokeo</h2>
+<div class="notice">Chagua shule, kisha ingiza namba ya mtihani au jina la mwanafunzi.</div>
+<div class="grid">
+<div><label>Shule</label>
+<select id="school">
+<option value="">-- Chagua Shule --</option>
+<option>Lowa Primary School</option>
+<option>Tumaini Primary School</option>
+<option>Katulo Primary School</option>
+<option>Buduba Primary School</option>
+<option>Bujika Primary School</option>
+<option>Nyandekwa Primary School</option>
+<option>Chalya Primary School</option>
+<option>Wendele Primary School</option>
+<option>Shule Nyingine</option>
+</select></div>
+<div><label>Namba ya Mtihani / Jina</label><input id="search" placeholder="Mfano: 001 au JUMA"></div>
+<div style="display:flex;align-items:end"><button onclick="showResult()">ANGALIA MATOKEO</button></div>
+</div>
+</div>
+
+<div class="card">
+<h2>🏫 Shule Zinazoshiriki</h2>
+<div class="school-list">
+<div class="school" onclick="choose('Lowa Primary School')"><b>Lowa Primary School</b><span class="muted">Shule ya Msingi Lowa</span></div>
+<div class="school" onclick="choose('Tumaini Primary School')"><b>Tumaini Primary School</b><span class="muted">Shule ya Msingi Tumaini</span></div>
+<div class="school" onclick="choose('Katulo Primary School')"><b>Katulo Primary School</b><span class="muted">Shule mshiriki</span></div>
+<div class="school" onclick="choose('Buduba Primary School')"><b>Buduba Primary School</b><span class="muted">Shule mshiriki</span></div>
+<div class="school" onclick="choose('Bujika Primary School')"><b>Bujika Primary School</b><span class="muted">Shule mshiriki</span></div>
+<div class="school" onclick="choose('Nyandekwa Primary School')"><b>Nyandekwa Primary School</b><span class="muted">Shule mshiriki</span></div>
+<div class="school" onclick="choose('Chalya Primary School')"><b>Chalya Primary School</b><span class="muted">Shule mshiriki</span></div>
+<div class="school" onclick="choose('Wendele Primary School')"><b>Wendele Primary School</b><span class="muted">Shule mshiriki</span></div>
+</div>
+</div>
+
+<div id="result" class="card result">
+<h2>📄 MATOKEO YA MWANAFUNZI</h2>
+<div id="resultBody"></div>
+<button class="secondary" onclick="window.print()">🖨️ Chapisha Matokeo</button>
+</div>
+
+<div class="card">
+<h2>🔐 Wasimamizi wa Shule</h2>
+<p>Kila shule inaweza kuwa na akaunti ya Mwalimu Mkuu kwa ajili ya kuingiza na kusimamia matokeo. Sehemu hii itaunganishwa na hifadhidata ya mtandaoni katika hatua ya server/database.</p>
+<div class="grid">
+<div><label>Jina la mtumiaji</label><input placeholder="Username"></div>
+<div><label>Nywila</label><input type="password" placeholder="Password"></div>
+<div style="display:flex;align-items:end"><button class="success" onclick="alert('Sehemu ya kuingia itaunganishwa na hifadhidata ya mtandaoni.')">INGIA</button></div>
+</div>
+</div>
+</div>
+
+<footer>
+© 2026 Mfumo wa Matokeo • Umoja wa Walimu Wakuu Katulo • MITIHANI BORA, TUMAINI LETU
+</footer>
+
+<script>
+const demo={
+"Lowa Primary School":{name:"JUMA ABDALLAH",number:"001",gender:"Mvulana",subjects:[
+["Kiswahili",42,"A"],["English",38,"B"],["Sayansi",40,"B"],["Hisabati",45,"A"],["Historia ya Tanzania",37,"B"],["Jiografia & Sanaa",43,"A"]]},
+"Tumaini Primary School":{name:"MERCY JOHN",number:"001",gender:"Msichana",subjects:[
+["Kiswahili",44,"A"],["English",41,"A"],["Sayansi",39,"B"],["Hisabati",46,"A"],["Historia ya Tanzania",35,"B"],["Jiografia & Sanaa",42,"A"]]}
+};
+
+function choose(s){document.getElementById("school").value=s;document.getElementById("search").focus();window.scrollTo({top:0,behavior:"smooth"})}
+function showResult(){
+ const school=document.getElementById("school").value, q=document.getElementById("search").value.trim().toLowerCase();
+ const box=document.getElementById("result"), body=document.getElementById("resultBody");
+ if(!school){alert("Tafadhali chagua shule kwanza.");return}
+ if(!q){alert("Ingiza namba ya mtihani au jina la mwanafunzi.");return}
+ let d=demo[school];
+ if(!d || (q!==d.number && !d.name.toLowerCase().includes(q))){
+   body.innerHTML='<div class="notice">Hakuna matokeo ya mfano yaliyopatikana. Mwalimu Mkuu wa shule ataingiza matokeo halisi kupitia mfumo wa usimamizi.</div>';
+   box.style.display="block"; box.scrollIntoView({behavior:"smooth"}); return;
+ }
+ let total=d.subjects.reduce((a,b)=>a+b[1],0), grade=total>=241?"A":total>=181?"B":total>=121?"C":"D";
+ body.innerHTML=`<div class="student-head"><b>Shule:</b> ${school}<br><b>Jina:</b> ${d.name}<br><b>Namba:</b> ${d.number}<br><b>Jinsi:</b> ${d.gender}</div>
+ <table><tr><th>Somo</th><th>Alama</th><th>Daraja</th></tr>${d.subjects.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}
+ <tr><th>JUMLA KUU</th><th>${total}</th><th>${grade}</th></tr></table>
+ <p><b>Hali ya Ufaulu:</b> <span class="pass">AMEFAULU</span></p>`;
+ box.style.display="block";box.scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
